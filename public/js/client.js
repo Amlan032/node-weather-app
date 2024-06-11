@@ -1,17 +1,3 @@
-console.log("Latest Client side js is running")
-
-// fetch("https://puzzle.mead.io/puzzle").then((response) => {
-//     response.json().then((data) => {
-//         console.log(data)
-//     })
-// })
-
-// fetch("http://localhost:3000/weather/?address=!").then((resp) => {
-//     resp.json().then((data) => {
-//         console.log(data)
-//     })
-// })
-
 document.getElementById('weatherForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const city = document.getElementById('city').value;

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/client.js"></script>
+    <title>Weather Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .weather-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Application</h1>
+        <form id="weatherForm">
+            <input type="text" id="city" placeholder="Enter city name" required>
+            <button type="submit">Get Weather</button>
+        </form>
+        <div class="weather-info" id="weatherInfo">
+            <!-- Weather information will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('weatherForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const city = document.getElementById('city').value;
+            // Assuming you have a function getWeather that fetches the weather data
+            getWeather(city);
+        });
+
+        function getWeather(city) {
+            // Placeholder for the actual API call
+            const weatherInfo = document.getElementById('weatherInfo');
+            weatherInfo.innerHTML = `<p>Fetching weather for ${city}...</p>`;
+            
+            // Example of displaying weather info
+            // This should be replaced with actual data from your API
+            fetch("http://localhost:3000/weather/?address="+encodeURI(city)).then((resp) => {
+                resp.json().then((data) => {
+                    if(data.error){
+                        weatherInfo.innerHTML = `<h2>${data.error}</h2>`
+                    }
+                    else if(data.errorMsg){
+                        weatherInfo.innerHTML = `<h2>${data.errorMsg}</h2>`
+                    }
+                    else{
+                        weatherInfo.innerHTML = `
+                            <h2>Weather in ${city}</h2>
+                            <p>Actual Temperature: ${data.actual_Temp}°C</p>
+                            <p>Feels like Temperature: ${data.feels_like}°C</p>
+                            <p>Location : ${data.location} </p>
+                        `
+                    }
+                })
+            })
+            setTimeout(() => {
+                weatherInfo.innerHTML = `
+                    <h2>Weather in ${city}</h2>
+                    <p>Temperature: 25°C</p>
+                    <p>Condition: Sunny</p>
+                `;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

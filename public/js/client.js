@@ -2,7 +2,6 @@ document.getElementById('weatherForm').addEventListener('submit', function(event
     event.preventDefault();
     const city = document.getElementById('city').value;
     console.log("test")
-    // Assuming you have a function getWeather that fetches the weather data
     getWeather(city);
 });
 
@@ -11,9 +10,7 @@ function getWeather(city) {
     const weatherInfo = document.getElementById('weatherInfo');
     weatherInfo.innerHTML = `<p>Fetching weather for ${city}...</p>`;
     
-    // Example of displaying weather info
-    // This should be replaced with actual data from your API
-    fetch("http://localhost:3000/weather/?address="+encodeURI(city)).then((resp) => {
+    fetch("/weather/?address="+encodeURI(city)).then((resp) => {
         resp.json().then((data) => {
             if(data.errorMsg){
                 weatherInfo.innerHTML = `<h2>Please enter a valid location</h2>`

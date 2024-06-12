@@ -6,6 +6,7 @@ const getCoordinates = require("./utils/getLocation.js")
 const getWeatherData = require("./utils/getWeatherData.js")
 
 const app = express()
+const port = process.env.PORT || 3000
 
 //define paths for express config
 const publicDirectoryPath = path.join(__dirname, "../public")
@@ -22,10 +23,6 @@ app.use(express.static(publicDirectoryPath))
 
 
 app.get("/", (req, resp) => {
-    // resp.render("index", {
-    //     title : "Dynamic Weather App",
-    //     name : "Amlan"
-    // })
     resp.render("weather")
 })
 
@@ -56,9 +53,6 @@ app.get("/weather", (req, resp) => {
             })
         }
         else{
-            // console.log("Latitude",data.latitude)
-            // console.log("Longitude", data.longitude)
-            // console.log("Full Address", data.fullAddress)
             getWeatherData(data.latitude, data.longitude, (error, weatherData) => {
                 if(error){
                     resp.send({
@@ -71,9 +65,6 @@ app.get("/weather", (req, resp) => {
                         "feels_like": weatherData.feelTemp,
                         "location": data.fullAddress
                     })
-                    // console.log("Actual Temp:", weatherData.temp)
-                    // console.log("Feels like: ", weatherData.feelTemp)
-                    // console.log("Location :", data.fullAddress)
                 }
             })
         }
@@ -100,6 +91,6 @@ app.get("*", (req, resp) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log("Server is up and running on port 3000")
+app.listen(port, () => {
+    console.log("Server is up and running on port", port)
 })

@@ -11,7 +11,8 @@ const getWeatherData = (latitude, longitude, callback) => {
         try{
             const data = {
                 temp : response.body.main.temp,
-                feelTemp : response.body.main.feels_like
+                feelTemp : response.body.main.feels_like,
+                description : response.body.weather[0].description
             }
             callback(undefined, data)
         }

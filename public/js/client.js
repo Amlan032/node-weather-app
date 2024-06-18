@@ -18,6 +18,7 @@ function getWeather(city) {
             else{
                 weatherInfo.innerHTML = `
                     <h2>Weather in ${city}</h2>
+                    <p>Weather description: ${data.description}</p>
                     <p>Actual Temperature: ${data.actual_Temp}°C</p>
                     <p>Feels like Temperature: ${data.feels_like}°C</p>
                     <p>Location : ${data.location} </p>

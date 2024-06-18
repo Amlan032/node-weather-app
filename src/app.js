@@ -63,6 +63,7 @@ app.get("/weather", (req, resp) => {
                     resp.send({
                         "actual_Temp": weatherData.temp,
                         "feels_like": weatherData.feelTemp,
+                        "description" : weatherData.description,
                         "location": data.fullAddress
                     })
                 }
